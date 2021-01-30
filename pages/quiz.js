@@ -1,15 +1,10 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable linebreak-style */
 import React from 'react';
-import styled from 'styled-components';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-
 import db from '../db.json';
-import QuizBackground from '../src/components/QuizBackground';
-import GitHubCorner from '../src/components/GitHubCorner';
-import QuizContainer from '../src/components/QuizContainer';
 import Widget from '../src/components/Widget';
+import QuizLogo from '../src/components/QuizLogo';
+import QuizBackground from '../src/components/QuizBackground';
+import QuizContainer from '../src/components/QuizContainer';
 import Button from '../src/components/Button';
 
 function LoadingWidget() {
@@ -23,22 +18,27 @@ function LoadingWidget() {
         [Desafio do Loading]
       </Widget.Content>
     </Widget>
-
   );
 }
 
-function QuestionWidget({ question, questionIndex, totalQuestion }) {
-  const questionId = `question_${questionIndex}`;
+function QuestionWidget({
+  question,
+  questionIndex,
+  totalQuestions,
+  onSubmit,
+}) {
+  const questionId = `question__${questionIndex}`;
   return (
     <Widget>
       <Widget.Header>
         {/* <BackLinkArrow href="/" /> */}
         <h3>
-          {`Pergunta ${questionIndex + 1} de ${totalQuestion}`}
+          {`Pergunta ${questionIndex + 1} de ${totalQuestions}`}
         </h3>
       </Widget.Header>
+
       <img
-        alt="Descricao"
+        alt="Descrição"
         style={{
           width: '100%',
           height: '150px',
@@ -54,17 +54,23 @@ function QuestionWidget({ question, questionIndex, totalQuestion }) {
           {question.description}
         </p>
 
-        <form>
+        <form
+          onSubmit={(infosDoEvento) => {
+            infosDoEvento.preventDefault();
+            onSubmit();
+          }}
+        >
           {question.alternatives.map((alternative, alternativeIndex) => {
-            const alternativeId = `alternative_${alternativeIndex}`;
+            const alternativeId = `alternative__${alternativeIndex}`;
             return (
               <Widget.Topic
                 as="label"
                 htmlFor={alternativeId}
               >
                 <input
-                  name={questionId}
+                  // style={{ display: 'none' }}
                   id={alternativeId}
+                  name={questionId}
                   type="radio"
                 />
                 {alternative}
@@ -72,6 +78,9 @@ function QuestionWidget({ question, questionIndex, totalQuestion }) {
             );
           })}
 
+          {/* <pre>
+            {JSON.stringify(question, null, 4)}
+          </pre> */}
           <Button type="submit">
             Confirmar
           </Button>
@@ -81,25 +90,56 @@ function QuestionWidget({ question, questionIndex, totalQuestion }) {
   );
 }
 
+const screenStates = {
+  QUIZ: 'QUIZ',
+  LOADING: 'LOADING',
+  RESULT: 'RESULT',
+};
 export default function QuizPage() {
-  const totalQuestion = db.questions.length;
-  const questionIndex = 0;
+  const [screenState, setScreenState] = React.useState(screenStates.LOADING);
+  const totalQuestions = db.questions.length;
+  const [currentQuestion, setCurrentQuestion] = React.useState(0);
+  const questionIndex = currentQuestion;
   const question = db.questions[questionIndex];
+
+  // [React chama de: Efeitos || Effects]
+  // React.useEffect
+  // atualizado === willUpdate
+  // morre === willUnmount
+  React.useEffect(() => {
+    // fetch() ...
+    setTimeout(() => {
+      setScreenState(screenStates.QUIZ);
+    }, 1 * 1000);
+  // nasce === didMount
+  }, []);
+
+  function handleSubmitQuiz() {
+    const nextQuestion = questionIndex + 1;
+    if (nextQuestion < totalQuestions) {
+      setCurrentQuestion(nextQuestion);
+    } else {
+      setScreenState(screenStates.RESULT);
+    }
+  }
 
   return (
     <QuizBackground backgroundImage={db.bg}>
-      <Head>
-        <title>Perguntas</title>
-      </Head>
       <QuizContainer>
-        <QuestionWidget
-          question={question}
-          questionIndex={questionIndex}
-          totalQuestion={totalQuestion}
-        />
-        <LoadingWidget />
-      </QuizContainer>
+        <QuizLogo />
+        {screenState === screenStates.QUIZ && (
+          <QuestionWidget
+            question={question}
+            questionIndex={questionIndex}
+            totalQuestions={totalQuestions}
+            onSubmit={handleSubmitQuiz}
+          />
+        )}
 
+        {screenState === screenStates.LOADING && <LoadingWidget />}
+
+        {screenState === screenStates.RESULT && <div>Você acertou X questões, parabéns!</div>}
+      </QuizContainer>
     </QuizBackground>
   );
 }
