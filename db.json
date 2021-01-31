@@ -1,5 +1,7 @@
 {
-    "bg": "https://gooutside-static-cdn.akamaized.net/wp-content/uploads/sites/3/2020/03/correr-todos-os-dias.jpg",
+    "bg": "https://images.pexels.com/photos/3601094/pexels-photo-3601094.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+    "bgQuiz" : "https://images.pexels.com/photos/1152237/pexels-photo-1152237.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    "loadingImg": "https://media.giphy.com/media/11FuEnXyGsXFba/giphy.gif", 
     "title": "Como ter um dia melhor?",
     "description": "Veja se tem bons habitos para um dia saudavel e cheio de energia",
     "questions": [
@@ -7,15 +9,27 @@
         "image": "https://media.giphy.com/media/y3gSFLgNLMaBi/giphy.gif",
         "title": "Qual a melhor opção para um café da manhã?",
         "description": "Huuuum..",
-        "answer": 3,
+        "answer": 2,
         "alternatives": [
           "Hamburguer",
           "Pizza",
           "Ovos",
           "Não tomar"
         ]
+      },
+      {
+        "image": "https://media.giphy.com/media/eltlIJQ3gWNDGGAYgs/giphy.gif",
+        "title": "De quantas em quantas hora é recomendado fazer uma alimentação?",
+        "description": "Huuuum..",
+        "answer": 1,
+        "alternatives": [
+          "5 em 5",
+          "3 em 3",
+          "2 em 2",
+          "Não importa o horario"
+        ]
       }
-    ],
+    ],    
     "external": [
       ""
     ],
