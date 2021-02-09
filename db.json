@@ -19,7 +19,7 @@
       },
       {
         "image": "https://media.giphy.com/media/eltlIJQ3gWNDGGAYgs/giphy.gif",
-        "title": "De quantas em quantas hora é recomendado fazer uma alimentação?",
+        "title": "De quantas em quantas horas é recomendado fazer uma alimentação?",
         "description": "Huuuum..",
         "answer": 1,
         "alternatives": [
@@ -31,7 +31,9 @@
       }
     ],    
     "external": [
-      ""
+      "https://aluraquiz-devsoutinho.omariosouto.vercel.app/",
+      "https://aluraquiz-css.omariosouto.vercel.app/",
+      "https://aluraquiz-base.alura-challenges.vercel.app/"
     ],
     "theme": {
       "colors": {
