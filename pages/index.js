@@ -42,7 +42,7 @@ export default function Home() {
           initial="hidden"
           animate="show"
         >
-          <Widget.Header><h1>NARUTO QUIZ</h1></Widget.Header>
+          <Widget.Header><h1>Melhoria</h1></Widget.Header>
           <Widget.Content>
             <form onSubmit={(infosDoEvento) => {
               infosDoEvento.preventDefault();
